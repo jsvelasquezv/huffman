@@ -1,10 +1,10 @@
 class Node
 
 	#Getters and setters
-	attr_accessor :key, :left, :right
+	attr_accessor :key, :left, :right, #:parent
 
 	#Constructor
-	def initialize key, left, right
+	def initialize key, left, right, #parent
 		@key = key
 		@left = left
 		@right = right
