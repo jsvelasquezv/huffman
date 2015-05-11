@@ -1,29 +1,30 @@
 class Node
 
 	#Getters and setters
-	attr_accessor :key, :left, :right, #:parent
+	attr_accessor :key, :left, :right, :parent
 
 	#Constructor
-	def initialize key, left, right, #parent
+	def initialize key, left, right, parent
 		@key = key
 		@left = left
 		@right = right
+		@parent = parent
 	end	
 end
 
 class BinarySearchTree 
 
 	def initialize (key)
-		@root = Node.new(key,nil,nil)
+		@root = Node.new(key,nil,nil,nil)
 	end
 
 	def insert key
 		currentNode = @root
 		while currentNode != nil
 			if (key < currentNode.key) && (currentNode.left == nil) #1
-				currentNode.left = Node.new(key,nil,nil)
+				currentNode.left = Node.new(key,nil,nil, currentNode)
 			elsif (key > currentNode.key) && (currentNode.right == nil) #2
-				currentNode.right = Node.new(key,nil,nil) 
+				currentNode.right = Node.new(key,nil,nil, currentNode) 
 			elsif (key < currentNode.key) #3
 				currentNode = currentNode.left
 			elsif (key > currentNode.key) #4
@@ -32,6 +33,14 @@ class BinarySearchTree
 				return				
 			end
 		end
+	end
+
+
+	def inOrder(node = @root)
+        return if (node == nil)
+        inOrder(node.left)
+        puts node.key.to_s
+        inOrder(node.right)
 	end
 
 =begin
@@ -53,3 +62,5 @@ end
 bst = BinarySearchTree.new(5)
 bst.insert(2)
 bst.insert(6)
+bst.insert(3)
+bst.inOrder()
