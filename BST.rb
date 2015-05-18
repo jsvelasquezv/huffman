@@ -1,17 +1,17 @@
 class Node
 
 	#Getters and setters
-	attr_accessor :key, :left, :right, :parent
+	attr_accessor :char, :frecuency, :left, :right
 
 	#Constructor
-	def initialize key, left, right, parent
-		@key = key
+	def initialize char, frecuency, left, right
+		@char = char
+		@frecuency = frecuency
 		@left = left
 		@right = right
-		@parent = parent
 	end	
 end
-
+=begin
 class BinarySearchTree 
 
 	def initialize (key)
@@ -42,7 +42,7 @@ class BinarySearchTree
         puts node.key.to_s
         inOrder(node.right)
 	end
-
+=end
 =begin
 	1) Si el nodo no tiene hijo izquierdo y el valor es menor que la llave 
 	de este, se insertara el nuevo hijo a la izquierda.
@@ -57,10 +57,4 @@ class BinarySearchTree
 	es mayor que la llave de este, el nodo actual pasara a ser el hijo derecho
 =end	
 
-end
 
-bst = BinarySearchTree.new(5)
-bst.insert(2)
-bst.insert(6)
-bst.insert(3)
-bst.inOrder()
