@@ -3,7 +3,8 @@ load "BST.rb"
 
 class Huffman
 
-	attr_accessor :inputString, :archives, :frecuency, :huffmanTree, :nodes
+	attr_accessor :inputString, :archives, :frecuency, :huffmanTree, :nodes,
+					:alphabet
 
 	def initialize
 		@archives = Archives.new
@@ -36,8 +37,6 @@ class Huffman
 			char = @nodes[i].char + @nodes[j].char
 			frecuency = @nodes[i].frecuency + @nodes[j].frecuency
 			node = Node.new(char, frecuency, @nodes[i], @nodes[j]) 
-			#puts @nodes
-			#puts "-------------"
 			nodes.shift(2)
 			@nodes.push(node)
 			i+2
@@ -47,8 +46,12 @@ class Huffman
 
 	def generateHuffmanAlphabet
 		tree = @nodes[0]
+		@alphabet = {}
 		# tree.search(tree, "o")
-		tree.inOrder(tree)
+		@frecuency.each do | key, value |
+			@alphabet.store(key, tree.search(tree,key))
+		end
+		puts @alphabet
 	end
 
 	def imprimir

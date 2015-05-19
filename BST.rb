@@ -1,7 +1,7 @@
 class Node
 
 	#Getters and setters
-	attr_accessor :char, :frecuency, :left, :right, :path
+	attr_accessor :char, :frecuency, :left, :right
 
 	#Constructor
 	def initialize char, frecuency, left, right
@@ -19,15 +19,15 @@ class Node
         inOrder(node.right)
 	end
 
-	def search(node, char)
+	def search(node, char, path="")
 		if (node == nil)
 			return
 		elsif (node.char[0,node.char.length/2].include? char)
-			print "0"
+			path = path+"0"
 			return search(node.left, char)
 			#puts "izquierda"
 		elsif (node.char[node.char.length/2, node.char.length].include? char)
-			print "1"
+			path = path+"1"
 			return search(node.right, char)
 			#puts "derecha"
 		end
