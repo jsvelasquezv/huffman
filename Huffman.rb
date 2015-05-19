@@ -30,33 +30,34 @@ class Huffman
 	end
 
 	def createTree
+		i = 0
+		j = 1
+		for k in (1..@frecuency.size-1) do
+			char = @nodes[i].char + @nodes[j].char
+			frecuency = @nodes[i].frecuency + @nodes[j].frecuency
+			node = Node.new(char, frecuency, @nodes[i], @nodes[j]) 
+			#puts @nodes
+			#puts "-------------"
+			nodes.shift(2)
+			@nodes.push(node)
+			i+2
+			j+2
+		end
+	end
 
-		#loop do
-			i = 0
-			j = 1
-			for k in (1..@frecuency.size-1) do
-				char = @nodes[i].char + @nodes[j].char
-				frecuency = @nodes[i].frecuency + @nodes[j].frecuency
-				node = Node.new(char, frecuency, @nodes[i], @nodes[j]) 
-				#puts @nodes
-				#puts "-------------"
-				nodes.shift(2)
-				@nodes.push(node)
-				i+2
-				j+2
-			end
-		puts @nodes
-		puts @nodes[0].char
-		puts @nodes[0].frecuency
+	def generateHuffmanAlphabet
+		tree = @nodes[0]
+		# tree.search(tree, "o")
+		tree.inOrder(tree)
 	end
 
 	def imprimir
-		
+		puts @frecuency
 	end
 
 	def printNodes
 		@nodes.each do | node |
-			puts node.char + node.frecuency
+			puts node
 		end
 	end
 end
@@ -67,3 +68,4 @@ h.createNodes
 h.imprimir
 h.createTree
 #h.printNodes
+h.generateHuffmanAlphabet

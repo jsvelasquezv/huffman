@@ -1,7 +1,7 @@
 class Node
 
 	#Getters and setters
-	attr_accessor :char, :frecuency, :left, :right
+	attr_accessor :char, :frecuency, :left, :right, :path
 
 	#Constructor
 	def initialize char, frecuency, left, right
@@ -9,7 +9,29 @@ class Node
 		@frecuency = frecuency
 		@left = left
 		@right = right
+		@path = ""
 	end	
+
+	def inOrder(node)
+        return if (node == nil)
+        inOrder(node.left)
+       	puts node.char.to_s
+        inOrder(node.right)
+	end
+
+	def search(node, char)
+		if (node == nil)
+			return
+		elsif (node.char[0,node.char.length/2].include? char)
+			print "0"
+			return search(node.left, char)
+			#puts "izquierda"
+		elsif (node.char[node.char.length/2, node.char.length].include? char)
+			print "1"
+			return search(node.right, char)
+			#puts "derecha"
+		end
+	end
 end
 =begin
 class BinarySearchTree 
