@@ -55,6 +55,7 @@ class Huffman
 	end
 
 	def generateBinaryEncoding
+		@inputString = @archives.readText("input.txt")
 		binaryEncoding = @inputString
 		@inputString.each_char do | char |
 			binaryEncoding[char]=@alphabet[char]
@@ -75,10 +76,11 @@ class Huffman
 	end
 
 	def generateAsciiEncoding
+		@inputString = @archives.readText("input.txt")
 		asciiEncoding = @inputString
+		puts asciiAlphabet
 		@inputString.each_char do | char |
-			asciiEncoding[char]=@asciiAlphabet[char].to_s
-			puts asciiEncoding
+			asciiEncoding[char]=@asciiAlphabet[char]
 		end
 		@archives.writeText("asciiEncoding.txt",asciiEncoding)
 	end
