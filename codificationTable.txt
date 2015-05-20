@@ -1,3 +1,5 @@
+Cantidad de nodos: 7
+Altura maxima: 3
 {"m"=>"001"
  "p"=>"011"
  "i"=>"101"

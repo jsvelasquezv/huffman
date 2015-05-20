@@ -19,6 +19,16 @@ class Node
         inOrder(node.right)
 	end
 
+	def maxHeight(node)
+  		if (node == nil) 
+  			return 0
+  		end
+  		left_height = maxHeight(node.left)
+  		right_height = maxHeight(node.right)
+  		return (left_height > right_height) ? left_height + 1 : right_height + 1
+	end
+
+
 	def search(node, char)
 		if (node == nil)
 			path = @path
