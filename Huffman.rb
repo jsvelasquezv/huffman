@@ -4,7 +4,7 @@ load "BST.rb"
 class Huffman
 
 	attr_accessor :inputString, :archives, :frecuency, :huffmanTree, :nodes,
-					:alphabet, :asciiAlphabet, :nodeCount, :maxHeight
+					:alphabet, :asciiAlphabet, :nodeCount, :maxHeight, :binaryEncoding
 
 	def initialize
 		@archives = Archives.new
@@ -48,8 +48,6 @@ class Huffman
 	def generateHuffmanAlphabet
 		tree = @nodes[0]
 		@alphabet = {}
-		#a = tree.search(tree, "l")
-		#puts a.join("")
 		@frecuency.each do | key, value |
 			@alphabet.store(key, tree.search(tree,key).join(""))
 		end
@@ -58,11 +56,11 @@ class Huffman
 
 	def generateBinaryEncoding
 		@inputString = @archives.readText("input.txt")
-		binaryEncoding = @inputString
+		@binaryEncoding = @inputString
 		@inputString.each_char do | char |
-			binaryEncoding[char]=@alphabet[char]
+			@binaryEncoding[char]=@alphabet[char]
 		end
-		@archives.writeText("binaryEncoding.txt",binaryEncoding)
+		@archives.writeText("binaryEncoding.txt",@binaryEncoding)
 	end
 
 	def writeCodificationTable
@@ -78,8 +76,10 @@ class Huffman
 			@asciiAlphabet.store(key, ascii.to_s)
 		end
 	end
+=begin
 
 	def generateAsciiEncoding
+		puts @binaryEncoding
 		@inputString = @archives.readText("input.txt")
 		asciiEncoding = @inputString
 		@inputString.each_char do | char |
@@ -87,6 +87,16 @@ class Huffman
 		end
 		@archives.writeText("asciiEncoding.txt",asciiEncoding)
 	end
+=end
+	def generateAsciiEncoding
+		binary = @binaryEncoding.chars.each_slice(7).map(&:join)
+		asciiEncoding = ""
+		binary.each do | value |
+			asciiEncoding += value.to_i(2).chr
+		end
+		@archives.writeText("asciiEncoding.txt",asciiEncoding)
+	end
+
 end
 
 h = Huffman.new()
@@ -96,5 +106,5 @@ h.createTree
 h.generateHuffmanAlphabet
 h.writeCodificationTable
 h.generateBinaryEncoding
-h.generateAsciiAlphabet
+#h.generateAsciiAlphabet
 h.generateAsciiEncoding
