@@ -12,7 +12,7 @@ class Archives
 				@inputString << string
 			end
 		end
-		return @inputString
+		return @inputString.downcase
 	end
 
 	def writeText file, text

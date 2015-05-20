@@ -4,7 +4,7 @@ load "BST.rb"
 class Huffman
 
 	attr_accessor :inputString, :archives, :frecuency, :huffmanTree, :nodes,
-					:alphabet
+					:alphabet, :asciiAlphabet
 
 	def initialize
 		@archives = Archives.new
@@ -47,28 +47,49 @@ class Huffman
 	def generateHuffmanAlphabet
 		tree = @nodes[0]
 		@alphabet = {}
-		# tree.search(tree, "o")
+		#a = tree.search(tree, "l")
+		#puts a.join("")
 		@frecuency.each do | key, value |
-			@alphabet.store(key, tree.search(tree,key))
+			@alphabet.store(key, tree.search(tree,key).join(""))
 		end
-		puts @alphabet
 	end
 
-	def imprimir
-		puts @frecuency
+	def generateBinaryEncoding
+		binaryEncoding = @inputString
+		@inputString.each_char do | char |
+			binaryEncoding[char]=@alphabet[char]
+		end
+		@archives.writeText("binaryEncoding.txt",binaryEncoding)
 	end
 
-	def printNodes
-		@nodes.each do | node |
-			puts node
+	def writeCodificationTable
+		@archives.writeText("codificationTable.txt",@alphabet.to_s.gsub(",","\n"))
+	end
+
+	def generateAsciiAlphabet
+		@asciiAlphabet = {}
+		@alphabet.each do | key, value |
+			ascii = value.to_i(2).chr
+			@asciiAlphabet.store(key, ascii.to_s)
 		end
+	end
+
+	def generateAsciiEncoding
+		asciiEncoding = @inputString
+		@inputString.each_char do | char |
+			asciiEncoding[char]=@asciiAlphabet[char].to_s
+			puts asciiEncoding
+		end
+		@archives.writeText("asciiEncoding.txt",asciiEncoding)
 	end
 end
 
 h = Huffman.new()
 h.frecuencyCount
 h.createNodes
-h.imprimir
 h.createTree
-#h.printNodes
 h.generateHuffmanAlphabet
+h.writeCodificationTable
+h.generateBinaryEncoding
+h.generateAsciiAlphabet
+h.generateAsciiEncoding
